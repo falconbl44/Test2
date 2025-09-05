@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Профессия мечты</title>
+    <meta name="color-scheme" content="dark light" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+</head>
+<body>
+<!-- Шапка -->
+<header class="site-header" role="banner">
+    <div class="site-title">Профессия мечты</div>
+</header>
+
+<!-- Прогресс-бар -->
+<div class="progress" aria-hidden="true">
+    <div class="progress__bar" style="width:0%"></div>
+</div>
+
+<!-- Контент -->
+<main id="story" role="main">
+    <div class="container">
+        <!-- Блок 0: приветствие + запрос имени -->
+        <section class="block" data-step="0" aria-labelledby="intro-title">
+            <h2 id="intro-title">Привет!</h2>
+            <p class="lead">Меня Илья зовут, а как тебя?</p>
+
+            <div class="form-row">
+                <label for="name">Твоё имя</label>
+                <input id="name" name="name" type="text" inputmode="text"
+                       autocomplete="given-name" placeholder="Например, Вениамин" />
+                <button class="btn" type="button">Далее</button>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Оверлей для видео -->
+<div class="video-overlay" id="videoOverlay">
+    <video id="explodeVideo" src="./assets/explode.mp4" controls></video>
+</div>
+</body>
+</html>
