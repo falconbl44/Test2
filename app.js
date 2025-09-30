@@ -114,14 +114,14 @@
             type: 'text',
             title: '8 Data Analyst',
             image: {
-                src: 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGxjMjFyeGZjbzIwMXF1aW05bWVoZ2RodHY0bWNvbXI5MzM3ZTd4aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QBFxBmTpCDFTTg6f8r/giphy.gif',
-                alt: 'Fullstack'
+                src: 'assets/pooping.png',
+                alt: 'poop'
             },
             paragraphs: [
-                '1. Как будто звучит здорово.',
-                '2. Одновременно звучит как то, что очень долго изучать.',
-                '3. Одновременно звучит как то кем я сейчас являюсь на ресепшн — всё везде и сразу, хорошо ли это?',
-                '4. Начинать точно не с этого и судя по всему это невозможно. Но если брать конкретику, то Python + JS.'
+                '1. Я люблю статистику и таблички',
+                '2. Excel конечно привычнее и понятнее, но тут больше вариативности',
+                '3. Мне нравится аналитика доходов, расходов, топов, ключевых действий в футболе и т.д',
+                '4. Я люблю затыкать людей на основе объективных фактов и я душнила'
             ]
         },
         {
@@ -129,8 +129,8 @@
             title: '8 Финальный блок',
             paragraphs: [
                 'Подытоживая топ у нас следующий:',
-                '1 Frontend (JavaScript)',
-                '2 Аналитик данных',
+                '1 Аналитик данных',
+                '2 Frontend (JavaScript)',
                 '3 Python - разработчик',
                 ' ',
                 'Писал ли я весь код этого сайта сам? Конечно нет. ChatGpt наше всё',
@@ -332,4 +332,5 @@
     firstBlock.classList.add('visible');
     updateProgress();
 })();
+
 
