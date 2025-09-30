@@ -110,13 +110,15 @@
                 'В колледже проходили основы — фу, не очень.'
             ]
         },
-        {
+                {
             type: 'text',
             title: '8 Data Analyst',
-            image: {
-                src: 'assets/pooping.png',
-                alt: 'poop'
-            },
+            images: [
+                { src: 'assets/pooping.png', alt: 'poop' },
+                { src: 'assets/sleep.jpg', alt: 'sleep' },
+                { src: 'assets/activities.png', alt: 'activities' },
+                { src: 'assets/amorim.jpg', alt: 'amorim' }
+            ],
             paragraphs: [
                 '1. Я люблю статистику и таблички',
                 '2. Excel конечно привычнее и понятнее, но тут больше вариативности',
@@ -332,5 +334,6 @@
     firstBlock.classList.add('visible');
     updateProgress();
 })();
+
 
 
