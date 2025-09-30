@@ -185,3 +185,33 @@ input[type="text"]:focus {
         transition: none;
     }
 }
+
+/* Карусель */
+.carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 12px 0;
+}
+.carousel img {
+    max-width: 100%;
+    border-radius: var(--radius);
+}
+.carousel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.carousel button:hover {
+    background: rgba(0,0,0,0.8);
+}
+.carousel .prev { left: 8px; }
+.carousel .next { right: 8px; }
