@@ -99,8 +99,8 @@
                 '1 Пробежался бегло по курсу в практикуме, не заинтересовало, но наверное самый легкий порог входа',
                 '2 Мне иногда проще целиком снести всё, что сделал другой человек и сделать заново как мне надо.',
                 '3 Ненавижу искать ошибки в чужой работе. Я в своей то их ненавижу искать.',
-                '4 Понимаю, что заниматься этим всё равно придется — но не хочу это видеть как основное занятие.',
-                '5 Инженер по безопасности как будто туда же.'
+                '4. Понимаю, что заниматься этим всё равно придется — но не хочу это видеть как основное занятие.',
+                '5. Инженер по безопасности как будто туда же.'
             ]
         },
         {
@@ -110,7 +110,7 @@
                 'В колледже проходили основы — фу, не очень.'
             ]
         },
-                {
+        {
             type: 'text',
             title: '8 Data Analyst',
             images: [
@@ -197,7 +197,42 @@
         let sec = createBlock({ title: stepDef.title });
 
         if (stepDef.type === 'text') {
-            if (stepDef.image) {
+            // --- Карусель ---
+            if (stepDef.images) {
+                const carousel = document.createElement('div');
+                carousel.className = 'carousel';
+
+                const img = document.createElement('img');
+                img.src = stepDef.images[0].src;
+                img.alt = stepDef.images[0].alt || '';
+                img.className = 'fade-img visible';
+                carousel.appendChild(img);
+
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'prev';
+                prevBtn.textContent = '←';
+
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'next';
+                nextBtn.textContent = '→';
+
+                carousel.appendChild(prevBtn);
+                carousel.appendChild(nextBtn);
+
+                let currentIndex = 0;
+                function showImage(i) {
+                    currentIndex = (i + stepDef.images.length) % stepDef.images.length;
+                    img.src = stepDef.images[currentIndex].src;
+                    img.alt = stepDef.images[currentIndex].alt || '';
+                }
+
+                prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+                nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+
+                sec.appendChild(carousel);
+            }
+            // --- Обычная одиночная картинка ---
+            else if (stepDef.image) {
                 const img = document.createElement('img');
                 img.src = stepDef.image.src;
                 img.alt = stepDef.image.alt || '';
@@ -334,6 +369,3 @@
     firstBlock.classList.add('visible');
     updateProgress();
 })();
-
-
-
