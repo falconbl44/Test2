@@ -168,3 +168,49 @@
         const img = document.createElement('img');
         img.src = stepDef.image.src;
         img.alt = stepDef.image.alt || '';
+        img.className = 'fade-img visible';
+        sec.appendChild(img);
+      }
+
+      if (stepDef.paragraphs) {
+        stepDef.paragraphs.forEach(pText => {
+          const p = document.createElement('p');
+          p.innerHTML = substitute(pText);
+          sec.appendChild(p);
+        });
+      }
+    } else if (stepDef.type === 'image') {
+      const img = document.createElement('img');
+      img.src = stepDef.src;
+      img.alt = stepDef.title || '';
+      img.className = 'fade-img visible';
+      sec.appendChild(img);
+    }
+
+    if (!stepDef.isLast) {
+      const nextBtn = createNextButton();
+      nextBtn.addEventListener('click', () => {
+        state.unlockedIndex++;
+        updateProgress();
+        renderStep(state.unlockedIndex);
+      });
+      sec.appendChild(nextBtn);
+    }
+
+    if (stepDef.isLast) {
+      sec.classList.add('final');
+    }
+
+    container.appendChild(sec);
+    requestAnimationFrame(() => sec.classList.add('visible'));
+  }
+
+  // init
+  updateProgress();
+  firstNextBtn.addEventListener('click', () => {
+    state.data.name = nameInput.value.trim();
+    state.unlockedIndex = 1;
+    updateProgress();
+    renderStep(state.unlockedIndex);
+  });
+})();
