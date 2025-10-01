@@ -124,8 +124,6 @@
     btn.textContent = text;
     return btn;
   }
-
-  // Прокрутка к последнему открытому блоку
   function scrollToEnd() {
     requestAnimationFrame(() => {
       const lastBlock = container.lastElementChild;
@@ -174,6 +172,16 @@
         prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
         nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
 
+        // Листание карусели стрелками клавиатуры
+        document.addEventListener('keydown', (e) => {
+          if (!document.body.contains(carousel)) return;
+          if (e.key === 'ArrowLeft') {
+            showImage(currentIndex - 1);
+          } else if (e.key === 'ArrowRight') {
+            showImage(currentIndex + 1);
+          }
+        });
+
         sec.appendChild(carousel);
       } else if (stepDef.image) {
         const img = document.createElement('img');
@@ -204,7 +212,6 @@
         state.unlockedIndex++;
         updateProgress();
         renderStep(state.unlockedIndex);
-        scrollToEnd();
       });
       sec.appendChild(nextBtn);
     } else {
@@ -231,7 +238,6 @@
         updateProgress();
         container.appendChild(firstBlock);
         firstBlock.classList.add('visible');
-        scrollToEnd();
       });
 
       controls.appendChild(explodeBtn);
@@ -256,7 +262,6 @@
   }
 
   firstNextBtn.addEventListener('click', goNextFromIntro);
-
   nameInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -264,7 +269,7 @@
     }
   });
 
-  // Глобальный обработчик Enter — жмёт последнюю кнопку "Далее"
+  // Глобальный Enter → последняя кнопка "Далее"
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !overlay.classList.contains('active')) {
       const allNextButtons = container.querySelectorAll('.btn');
