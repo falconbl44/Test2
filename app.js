@@ -195,9 +195,7 @@
         renderStep(state.unlockedIndex);
       });
       sec.appendChild(nextBtn);
-    }
-
-    if (stepDef.isLast) {
+    } else {
       sec.classList.add('final');
     }
 
@@ -207,6 +205,10 @@
 
   // init
   updateProgress();
+
+  // показываем стартовый блок
+  firstBlock.classList.add('visible');
+
   firstNextBtn.addEventListener('click', () => {
     state.data.name = nameInput.value.trim();
     state.unlockedIndex = 1;
