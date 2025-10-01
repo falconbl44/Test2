@@ -126,6 +126,16 @@
     return btn;
   }
 
+  // Прокрутка вниз к последнему блоку
+  function scrollToEnd() {
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // Рендер шага
   function renderStep(index) {
     const stepDef = steps[index - 1];
@@ -195,8 +205,17 @@
         state.unlockedIndex++;
         updateProgress();
         renderStep(state.unlockedIndex);
+        scrollToEnd();
       });
       sec.appendChild(nextBtn);
+
+      // поддержка Enter на этом шаге
+      sec.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          nextBtn.click();
+        }
+      });
     } else {
       sec.classList.add('final');
 
@@ -221,6 +240,7 @@
         updateProgress();
         container.appendChild(firstBlock);
         firstBlock.classList.add('visible');
+        scrollToEnd();
       });
 
       controls.appendChild(explodeBtn);
@@ -236,11 +256,23 @@
   updateProgress();
   firstBlock.classList.add('visible');
 
-  firstNextBtn.addEventListener('click', () => {
+  function goNextFromIntro() {
     state.data.name = nameInput.value.trim();
     state.unlockedIndex = 1;
     updateProgress();
     renderStep(state.unlockedIndex);
+    scrollToEnd();
+  }
+
+  // кнопка Далее в интро
+  firstNextBtn.addEventListener('click', goNextFromIntro);
+
+  // Enter в поле ввода имени
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      goNextFromIntro();
+    }
   });
 
   // Закрытие оверлея
