@@ -9,7 +9,6 @@
   const overlay = document.getElementById('videoOverlay');
   const video = document.getElementById('explodeVideo');
 
-  // Шаги
   const steps = [
     {
       type: 'text',
@@ -126,13 +125,13 @@
     return btn;
   }
 
-  // Прокрутка вниз к последнему блоку
+  // Прокрутка к последнему открытому блоку
   function scrollToEnd() {
     requestAnimationFrame(() => {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-      });
+      const lastBlock = container.lastElementChild;
+      if (lastBlock) {
+        lastBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   }
 
@@ -208,14 +207,6 @@
         scrollToEnd();
       });
       sec.appendChild(nextBtn);
-
-      // поддержка Enter на этом шаге
-      sec.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          nextBtn.click();
-        }
-      });
     } else {
       sec.classList.add('final');
 
@@ -250,6 +241,7 @@
 
     container.appendChild(sec);
     requestAnimationFrame(() => sec.classList.add('visible'));
+    scrollToEnd();
   }
 
   // init
@@ -261,17 +253,26 @@
     state.unlockedIndex = 1;
     updateProgress();
     renderStep(state.unlockedIndex);
-    scrollToEnd();
   }
 
-  // кнопка Далее в интро
   firstNextBtn.addEventListener('click', goNextFromIntro);
 
-  // Enter в поле ввода имени
   nameInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       goNextFromIntro();
+    }
+  });
+
+  // Глобальный обработчик Enter — жмёт последнюю кнопку "Далее"
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !overlay.classList.contains('active')) {
+      const allNextButtons = container.querySelectorAll('.btn');
+      const lastNext = Array.from(allNextButtons).filter(btn => btn.textContent.includes('Далее')).pop();
+      if (lastNext) {
+        e.preventDefault();
+        lastNext.click();
+      }
     }
   });
 
@@ -282,7 +283,6 @@
       video.pause();
     }
   });
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('active')) {
       overlay.classList.remove('active');
