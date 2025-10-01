@@ -131,7 +131,6 @@
     let sec = createBlock({ title: stepDef.title });
 
     if (stepDef.type === 'text') {
-      // Карусель
       if (stepDef.images) {
         const carousel = document.createElement('div');
         carousel.className = 'carousel';
@@ -197,6 +196,35 @@
       sec.appendChild(nextBtn);
     } else {
       sec.classList.add('final');
+
+      const controls = document.createElement('div');
+      controls.className = 'controls';
+
+      const explodeBtn = createNextButton('Эпичный взрыв');
+      explodeBtn.classList.add('explode');
+      explodeBtn.addEventListener('click', () => {
+        const overlay = document.getElementById('videoOverlay');
+        const video = document.getElementById('explodeVideo');
+        overlay.classList.add('active');
+        video.currentTime = 0;
+        video.play();
+      });
+
+      const restartBtn = createNextButton('Начать сначала');
+      restartBtn.classList.add('restart');
+      restartBtn.addEventListener('click', () => {
+        container.innerHTML = '';
+        state.unlockedIndex = 0;
+        state.data.name = '';
+        nameInput.value = '';
+        updateProgress();
+        container.appendChild(firstBlock);
+        firstBlock.classList.add('visible');
+      });
+
+      controls.appendChild(explodeBtn);
+      controls.appendChild(restartBtn);
+      sec.appendChild(controls);
     }
 
     container.appendChild(sec);
@@ -205,8 +233,6 @@
 
   // init
   updateProgress();
-
-  // показываем стартовый блок
   firstBlock.classList.add('visible');
 
   firstNextBtn.addEventListener('click', () => {
