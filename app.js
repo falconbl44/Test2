@@ -6,6 +6,9 @@
   const nameInput = document.getElementById('name');
   const firstNextBtn = firstBlock.querySelector('.btn');
 
+  const overlay = document.getElementById('videoOverlay');
+  const video = document.getElementById('explodeVideo');
+
   // Шаги
   const steps = [
     {
@@ -123,7 +126,7 @@
     return btn;
   }
 
-  // Рендер
+  // Рендер шага
   function renderStep(index) {
     const stepDef = steps[index - 1];
     if (!stepDef) return;
@@ -203,8 +206,6 @@
       const explodeBtn = createNextButton('Эпичный взрыв');
       explodeBtn.classList.add('explode');
       explodeBtn.addEventListener('click', () => {
-        const overlay = document.getElementById('videoOverlay');
-        const video = document.getElementById('explodeVideo');
         overlay.classList.add('active');
         video.currentTime = 0;
         video.play();
@@ -240,5 +241,20 @@
     state.unlockedIndex = 1;
     updateProgress();
     renderStep(state.unlockedIndex);
+  });
+
+  // Закрытие оверлея
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+      video.pause();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      overlay.classList.remove('active');
+      video.pause();
+    }
   });
 })();
